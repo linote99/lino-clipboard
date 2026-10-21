@@ -96,9 +96,6 @@ sh /data/local/tmp/lino_clipboard/boot_start.sh #lino_clipboard_autostart
 | 已安装 | 已安装 | 高亮显示；再点一次即覆盖重装 |
 | 需要高级功能 | （禁用） | 未开高级功能，写不了设备文件 |
 
-**不做版本校验**：只判断文件在不在。插件升级后想换新版本，直接点按钮覆盖即可，
-不会出现「版本不符、需要更新」这类中间态。
-
 安装前若监听正在运行，会先停掉、装完再自动恢复 —— 因为运行中的进程持有旧 dex，
 不重启进程就会出现「显示已安装但行为还是旧的」。
 
@@ -169,12 +166,6 @@ rm -rf /data/local/tmp/lino_clipboard
 ## 已实测通过的场景
 
 在 U30 Air（Android 13，UFI-TOOLS 4.1.5）上，用真实宿主页面（插件经平台自身的 `/api/get_custom_head` 通道注入）端到端验证：
-
-- 入口按钮挂进 `.actions-buttons`，用宿主按钮样式
-- 形态完全对齐 **CloudFlare 插件**：`container.insertAdjacentHTML('afterend', ...)` 挂到
-  `.functions-container` 之后；标题行 `.title > strong + span + 开关`；内容
-  `.collapse > .collapse_box > ul.deviceList > li`（复用宿主卡片样式）；`collapseGen(...)` 初始化折叠
-- **不创建任何弹窗**，旧结构与旧 id（`lino_clipboard_wrap`/`lino_clipboard_panel`）均已清除
 - 环境自检 → 「设备剪贴板可读写」
 - 写入含中文与 emoji 的文本 → 出现在历史 → 回读往返一致
 - 开启后台监听 → 状态变「后台监听中」→ 设备端进程存活
